@@ -35,6 +35,13 @@ parser = StrOutputParser()
 
 # Create the chain
 chain = prompt_template | model | parser
+
+# Define the FastAPI app
+app = FastAPI(
+    title="Langchain Server",
+    version="1.0",
+    description="A simple API server using Langchain runnable interfaces"
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://music-app-kpb2dryucspbqjtcqxttjq.streamlit.app/"],  # Adjust to restrict access to specific origins if needed
@@ -42,13 +49,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# Define the FastAPI app
-app = FastAPI(
-    title="Langchain Server",
-    version="1.0",
-    description="A simple API server using Langchain runnable interfaces"
-)
-
 # Adding chain routes
 add_routes(
     app,
