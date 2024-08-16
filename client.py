@@ -10,7 +10,7 @@ def get_groq_response(input_text, language):
         "config": {},
         "kwargs": {}
     }
-    response = requests.post("https://lecl-translator-4.onrender.com/chain/invoke", json=json_body)
+    response = requests.post("https://lecl-translator.onrender.com/chain/invoke", json=json_body)
     return response.json().get("output", "Translation not found")
 
 # Add a header
