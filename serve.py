@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_groq import ChatGroq
@@ -34,7 +35,13 @@ parser = StrOutputParser()
 
 # Create the chain
 chain = prompt_template | model | parser
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://music-app-kpb2dryucspbqjtcqxttjq.streamlit.app/"],  # Adjust to restrict access to specific origins if needed
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Define the FastAPI app
 app = FastAPI(
     title="Langchain Server",
